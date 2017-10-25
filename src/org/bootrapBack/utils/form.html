@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="../js/jquery-3.0.0.js"></script>
+	</head>
+	<script>
+		var a = {
+			"name": "18",
+			"age": "20"
+		};
+
+		function abc() {
+			$.ajax({
+				type: "post",
+				url: "Servlet01",
+				async: true,
+				data: a,
+				success: function(i) {
+					alert("success");
+				},
+				dataType:"json"
+			});
+		}
+	</script>
+
+	<body>
+
+		<button type="button" onclick="abc()">go</button>
+	</body>
+
+</html>
