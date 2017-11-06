@@ -33,12 +33,21 @@ public class Servlet01 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.setCharacterEncoding("utf-8");
+		Page page = new Page();
+		String offset = request.getParameter("offset");
+		String limit = request.getParameter("limit");
+		String search = request.getParameter("search");
+		if(search==null)search="";
+		page.setSearch(search);
+		if (limit != null && !limit.trim().equals("")) {
+			page.setLimit(Integer.valueOf(limit));
+		}
+		if (offset != null && !offset.trim().equals("")) {
+			page.setCurPage(Integer.valueOf(offset));
+		}
 		EmpDao ed = new EmpDao();
-		List<Emp> el = ed.selectAll();
-		page page = new page();
-		page.setTotal(10);
-		page.setRows(el);
+		page = ed.selectAll(page);
 		String json = JSONObject.toJSONString(page);
 		System.out.println(json);
 		response.setContentType("application/json;charset=utf-8");
